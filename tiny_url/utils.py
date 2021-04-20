@@ -8,19 +8,15 @@ import random
 
 def generate_url_id():
     lst = [random.choice(string.ascii_letters + string.digits) for n in range(7)]
-    url_id = "".join(lst)
 
-    return url_id
+    return "".join(lst)
 
 def save_url(original_url):
     url_id = generate_url_id()
+    # shorten_url = Url(key=url_id, original_url=original_url, user_id=current_user)
 
-    shorten_url = Url(key=url_id, original_url=original_url, user_id=current_user)
+    shorten_url = Url(key=url_id, original_url=original_url)
 
-    try:
-        db.session.add(url)
-        db.session.commit()
-    except Error as err:
-        raise err.message
-
+    db.session.add(shorten_url)
+    db.session.commit()
     return None 

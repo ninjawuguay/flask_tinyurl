@@ -2,7 +2,7 @@ from .models import Url
 from .models import CreateUrlInputSchema
 from .utils  import save_url
 from flask   import Blueprint, render_template, redirect, url_for, request, flash, abort
-from flask_login import current_user, login_required
+# from flask_login import current_user, login_required
 
 main = Blueprint('main', __name__)
 create_url_schema = CreateUrlInputSchema()
@@ -13,17 +13,17 @@ def index():
 
 
 @main.route('/home')
-@login_required
+# @login_required
 def home():
     return Url.query.filter_by(user_id=current_user.id)
 
 @main.route('/new')
-@login_required
+# @login_required
 def new_tiny_url():
     return render_template('tiny_url.html')
 
 @main.route('/new', methods=['POST'])
-@login_required
+# @login_required
 def new_tiny_url_post():
     errors = create_url_schema.validate(request.form)
     if errors: 
@@ -35,7 +35,7 @@ def new_tiny_url_post():
 
 @main.route('/<alias>', methods=['GET'])
 def redirect_to_alias(alias):
-	url_data = Url.query.filter_by(key=alias)
+    url_data = Url.query.filter_by(key=alias)
     if url_data is None:
         return bad_request('Unknown alias.')
 

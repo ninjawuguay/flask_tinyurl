@@ -1,0 +1,29 @@
+{% extends "base.html" %} {% block head %} {{ super() }}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename= 'extended_beauty.css') }}"
+/>
+{% endblock %} {% block content %}
+<div class="col-md-4 col-md-offset-4">
+  <form method="POST" action="/new">
+    <h2>Add New Tiny URL</h2>
+    {% with messages = get_flashed_messages() %} {% if messages %}
+    <div class="notification is-danger">
+      {{ messages[0] }}
+    </div>
+    {% endif %} {% endwith %}
+    <div class="form-group">
+      <label for="original_url">Original URL</label>
+      <input
+        type="text"
+        class="form-control"
+        id="original_url"
+        name="original_url"
+        aria-describedby="pushupHelp"
+        placeholder="Enter the full URL"
+      />
+    </div>
+    <button type="submit" class="btn btn-primary">Submit URL</button>
+  </form>
+</div>
+{% endblock %}
